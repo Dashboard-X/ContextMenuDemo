@@ -26,8 +26,9 @@
                         </Setter>
                     </Style>
                 </toolkit:ContextMenu.Style>
-                <Canvas Width="100" Height="100" Background="Red">
-                    <TextBlock>Something</TextBlock>
+                <Canvas Width="100" Height="100" Background="Transparent">
+                    <Button Width="100" Height="30">Something</Button>
+                    <Button Width="100" Height="30" Canvas.Top="70">Something Else</Button>
                 </Canvas>
             </toolkit:ContextMenu>
         </toolkit:ContextMenuService.ContextMenu>
