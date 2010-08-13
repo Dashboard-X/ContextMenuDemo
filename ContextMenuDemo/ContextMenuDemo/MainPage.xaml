@@ -5,10 +5,64 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="300" d:DesignWidth="400" xmlns:toolkit="http://schemas.microsoft.com/winfx/2006/xaml/presentation/toolkit">
+    <UserControl.Resources>
+        <Style x:Key="NoMouseOverStyle" TargetType="toolkit:MenuItem">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="Padding" Value="4,3,2,3"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="toolkit:MenuItem">
+                        <Grid>
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="CommonStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" To="0.5" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Presenter"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                                <VisualStateGroup x:Name="FocusStates">
+                                    <VisualState x:Name="Unfocused"/>
+                                    <!-- VisualState x:Name="Focused">
+										<Storyboard>
+											<DoubleAnimation Duration="0" To="1" Storyboard.TargetProperty="Opacity" Storyboard.TargetName="Bg"/>
+											<ColorAnimation Duration="0" To="#40FFFFFF" Storyboard.TargetProperty="(Shape.Stroke).(SolidColorBrush.Color)" Storyboard.TargetName="InnerBorder"/>
+										</Storyboard>
+									</VisualState -->
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Rectangle Fill="{TemplateBinding Background}" RadiusY="2" RadiusX="2" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1"/>
+                            <Rectangle x:Name="Bg" Opacity="0" RadiusY="2" RadiusX="2" Stroke="#8071CBF1" StrokeThickness="1">
+                                <Rectangle.Fill>
+                                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                                        <GradientStop Color="#34C5EBFF" Offset="0"/>
+                                        <GradientStop Color="#3481D8FF" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Rectangle.Fill>
+                            </Rectangle>
+                            <Rectangle x:Name="InnerBorder" Margin="1" RadiusY="2" RadiusX="2" Stroke="Transparent"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition MinWidth="24" Width="Auto"/>
+                                    <ColumnDefinition Width="4"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="17"/>
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Content="{TemplateBinding Icon}" Margin="1" VerticalAlignment="Center"/>
+                                <ContentPresenter x:Name="Presenter" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" Grid.Column="2" Margin="{TemplateBinding Padding}"/>
+                            </Grid>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
 
     <Grid x:Name="LayoutRoot" Background="White">
         <toolkit:ContextMenuService.ContextMenu>
-            <toolkit:ContextMenu Height="100" Background="Transparent" HorizontalOffset="-100" VerticalOffset="-100" Margin="98,112,0,0" Name="contextMenu1" VerticalAlignment="Top" Width="200">
+            <toolkit:ContextMenu Height="100" Background="Transparent" HorizontalOffset="-100" VerticalOffset="-100" Margin="98,112,0,0" Name="contextMenu1" VerticalAlignment="Top" Width="200" ItemContainerStyle="{StaticResource NoMouseOverStyle}">
                 <toolkit:ContextMenu.Style>
                     <Style TargetType="toolkit:ContextMenu">
                         <Setter Property="BorderThickness" Value="0" />
